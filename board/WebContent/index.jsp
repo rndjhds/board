@@ -10,5 +10,9 @@
 
 일반 게시판 프로그램
 
+<script>
+	location.href="board/list.jsp";
+</script>
+
 </body>
 </html>

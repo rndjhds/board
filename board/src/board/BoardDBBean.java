@@ -248,12 +248,37 @@ public class BoardDBBean {
 			e.printStackTrace();
 		}finally {
 			if(pstmt != null) try {pstmt.close();}catch(Exception e) {}
-			if(con != null) try {con.close();}catch(Exception e) {}
+			if(con != null)try {con.close();}catch(Exception e) {}
 		}
 		
 		return result;
 	}
 	
+	// 글삭제
+	public int delete(int num) {
+		int result=0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = getConnection();
+			
+			String sql = "delete from board0 where num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			result=pstmt.executeUpdate();	// SQL문 실행
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null)try {pstmt.close();}catch (Exception e) {}
+			if(con!=null)try {con.close();}catch (Exception e) {}
+		}
+		
+		
+		return result;
+	}
 	
 	
 	

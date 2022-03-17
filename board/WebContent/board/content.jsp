@@ -44,7 +44,8 @@
 			<input type="button" value="글수정" 
 				onClick="location.href='updateForm.jsp?num=<%=num%>&page=<%=nowpage%>'">
 			
-			<input type="button" value="글삭제">
+			<input type="button" value="글삭제"
+				onClick="location.href='deleteForm.jsp?num=<%=num%>&page=<%=nowpage%>'">
 			
 			<input type="button" value="글목록" 
 				onClick="location.href='list.jsp?page=<%=nowpage%>'">
