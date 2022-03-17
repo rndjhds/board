@@ -78,7 +78,13 @@
 %>		
 		<tr>
 			<td><%=number-- %></td>
-			<td><%=board.getSubject() %></td>
+			<td>
+				<!-- 해당 페이지로 돌아갈 수 있도록 페이지 값도 가져가야 하고 해당 정보를 가져오기 위해 primarykey를 가져간다. -->
+				<!-- 페이지 정보를 가져가지 않으면 1page로 넘어가게 된다. -->
+				<a href="content.jsp?num=<%=board.getNum()%>&page=<%=currentPage%>">
+				<%=board.getSubject() %>
+				</a>
+			</td>
 			<td><%=board.getWriter() %></td>
 			<td><%=sd.format(board.getReg_date()) %></td>
 			<td><%=board.getReadcount() %></td>
@@ -104,9 +110,46 @@
 		int startPage = ((currentPage-1)/10) * 10 +1;
 		int block = 10;	// 1개의 블럭의 크기 : 10개의 페이지로 구성
 		int endPage = startPage + block -1;
+		
+		// 가장 마지막 블록에는 endPage값을 pageCount로 수정
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		
+%>
+	<!-- 1page로 이동 -->
+		<a href="list.jsp?page=1" style="text-decoration: none"> << </a>
+
+<%		
+	// 이전 블록으로 이동	
+	if(startPage > 10){
+%>		
+		<a href="list.jsp?page=<%=startPage-10 %>">[이전]</a>	
+<%	}
+
+
+		// 각 블럭당 10개의 페이지 출력
+		for(int i=startPage;i<=endPage;i++){
+			if(i == currentPage) {	// 현재 페이지
+ %>				
+ 				[<%=i %>]
+<% 			}else{	%>
+				<a href="list.jsp?page=<%=i %>">[<%=i %>]</a>
+<% 			}
+		}	// for end
+		
+		
+		// 다음 블럭으로 이동
+		if(endPage < pageCount){
+%>			
+			<a href="list.jsp?page=<%=startPage+10 %>">[다음]</a>
+<%		}	%>
+
+	<!-- 마지막 페이지로 이동 -->
+		<a href="list.jsp?page=<%=pageCount %>" style="text-decoration: none"> >> </a>
+
+<% 
 	}
-
-
 %>
 </center>
 
